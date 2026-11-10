@@ -32,7 +32,7 @@ dotnet run --project Lumos.csproj
 .\scripts\build-installer.ps1
 ```
 
-O instalador sai em `dist\Lumos-Setup-1.1.0.exe` (requer [Inno Setup 6](https://jrsoftware.org/isinfo.php)).
+O instalador sai em `dist\Lumos-Setup-*.exe` (requer [Inno Setup 6](https://jrsoftware.org/isinfo.php)).
 
 Só publicar os binários:
 

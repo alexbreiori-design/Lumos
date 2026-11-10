@@ -11,14 +11,13 @@
     <ApplicationIcon>Assets\Lumos.ico</ApplicationIcon>
     <AssemblyName>Lumos</AssemblyName>
     <RootNamespace>Lumos</RootNamespace>
-    <Version>1.2.0</Version>
+    <Version>1.2.1</Version>
     <Product>Lumos</Product>
     <Description>Controle de brilho por monitor</Description>
   </PropertyGroup>
   <ItemGroup>
     <Resource Include="Assets\lumos-tray_icon-dark-theme.png" />
     <Resource Include="Assets\lumos-tray_icon-light-theme.png" />
-    <Resource Include="Assets\lumos-icon.png" />
     <Content Include="Assets\Lumos.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

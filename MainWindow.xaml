@@ -91,14 +91,4 @@
       <StackPanel x:Name="MonitorList" Margin="12,8,12,12" Visibility="Collapsed"/>
     </StackPanel>
   </Border>
-
-  <Window.Resources>
-    <Style x:Key="PopupCard" TargetType="Border">
-      <Setter Property="Background" Value="#12151C"/>
-      <Setter Property="BorderBrush" Value="#40343C4E"/>
-      <Setter Property="BorderThickness" Value="1"/>
-      <Setter Property="CornerRadius" Value="8"/>
-      <Setter Property="Padding" Value="6"/>
-    </Style>
-  </Window.Resources>
 </Window>

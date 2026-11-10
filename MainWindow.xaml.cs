@@ -58,6 +58,8 @@ public partial class MainWindow : Window
     {
         InitializeComponent();
         Settings = _store.Load();
+        if (string.Equals(Settings.Accent, "#F5005D", StringComparison.OrdinalIgnoreCase))
+            Settings.Accent = Theme.DefaultAccent;
         Settings.Accent = Theme.Normalize(Settings.Accent);
         Theme.Apply(Theme.Parse(Settings.Accent));
         UpdateProfileAccent();
@@ -82,6 +84,7 @@ public partial class MainWindow : Window
         LoadWindowIcon();
         _tray = CreateTray();
         StartupService.Apply(Settings.StartWithWindows);
+        Microsoft.Win32.SystemEvents.UserPreferenceChanged += OnUserPreferenceChanged;
 
         ActiveSlider.PreviewMouseLeftButtonDown += (_, _) => BeginMasterGesture();
         ActiveSlider.AddHandler(Thumb.DragStartedEvent, new DragStartedEventHandler((_, _) => BeginMasterGesture()));
@@ -137,10 +140,23 @@ public partial class MainWindow : Window
         _settingsWindow?.Close();
         if (_hwnd != 0)
             NativeMethods.WTSUnRegisterSessionNotification(_hwnd);
+        Microsoft.Win32.SystemEvents.UserPreferenceChanged -= OnUserPreferenceChanged;
         _overlay.Dispose();
         _bus.Dispose();
         _tray.Visible = false;
         _tray.Dispose();
+    }
+
+    private void OnUserPreferenceChanged(object sender, Microsoft.Win32.UserPreferenceChangedEventArgs e)
+    {
+        if (e.Category is not (Microsoft.Win32.UserPreferenceCategory.General or Microsoft.Win32.UserPreferenceCategory.Color))
+            return;
+        Dispatcher.BeginInvoke(() =>
+        {
+            Theme.ResetTrayCache();
+            Theme.Apply(Theme.Parse(Settings.Accent));
+            ApplyIcons();
+        });
     }
 
     internal string CustomName(string id)

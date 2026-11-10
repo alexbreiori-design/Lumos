@@ -7,3 +7,4 @@ dist/
 *.exe
 !Assets/*.ico
 !installer/*.iss
+Assets/*.psd

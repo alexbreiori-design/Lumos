@@ -5,14 +5,14 @@
   <Application.Resources>
     <Color x:Key="Ink">#F4F7FB</Color>
     <Color x:Key="Muted">#8E97A6</Color>
-    <Color x:Key="Accent">#F5005D</Color>
+    <Color x:Key="Accent">#8A37F1</Color>
     <SolidColorBrush x:Key="InkBrush" Color="{StaticResource Ink}"/>
     <SolidColorBrush x:Key="MutedBrush" Color="{StaticResource Muted}"/>
     <SolidColorBrush x:Key="AccentBrush" Color="{StaticResource Accent}"/>
-    <SolidColorBrush x:Key="AccentSoftBrush" Color="#3F1129"/>
-    <SolidColorBrush x:Key="AccentTextBrush" Color="#FA7AAB"/>
+    <SolidColorBrush x:Key="AccentSoftBrush" Color="#2A1840"/>
+    <SolidColorBrush x:Key="AccentTextBrush" Color="#C49BFF"/>
     <SolidColorBrush x:Key="AccentOnBrush" Color="#F4F7FB"/>
-    <SolidColorBrush x:Key="AccentHoverBrush" Color="#FF2E74"/>
+    <SolidColorBrush x:Key="AccentHoverBrush" Color="#9B52F5"/>
     <SolidColorBrush x:Key="CardBrush" Color="#1B202A"/>
     <SolidColorBrush x:Key="LineBrush" Color="#2C3342"/>
 

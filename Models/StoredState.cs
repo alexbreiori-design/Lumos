@@ -4,7 +4,7 @@ internal sealed class StoredState
 {
     public bool StartWithWindows { get; set; } = true;
 
-    public string Accent { get; set; } = "#F5005D";
+    public string Accent { get; set; } = "#8A37F1";
 
     public Dictionary<string, int> Levels { get; set; } = new();
 

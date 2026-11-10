@@ -1,0 +1,243 @@
+<Window x:Class="Brilho.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Configurações"
+        Width="940"
+        SizeToContent="Height"
+        ResizeMode="NoResize"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        WindowStartupLocation="CenterScreen"
+        FontFamily="Segoe UI"
+        FontSize="13"
+        SnapsToDevicePixels="True"
+        UseLayoutRounding="True"
+        TextOptions.TextFormattingMode="Display"
+        SizeChanged="Window_SizeChanged">
+  <Border x:Name="Chrome" Margin="16" CornerRadius="11" Background="#12151C" BorderBrush="#343C4E" BorderThickness="1"
+          MouseLeftButtonDown="Chrome_MouseLeftButtonDown">
+    <Border.Effect>
+      <DropShadowEffect BlurRadius="26" ShadowDepth="8" Opacity="0.48" Color="#000000"/>
+    </Border.Effect>
+    <Grid>
+    <DockPanel>
+      <Grid x:Name="TitleBar" DockPanel.Dock="Top" Margin="18,12,10,6" Background="Transparent"
+            MouseLeftButtonDown="TitleBar_MouseLeftButtonDown">
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" IsHitTestVisible="False">
+          <Image Source="{DynamicResource AppMark}" Width="18" Height="18" Margin="0,0,8,0"/>
+          <TextBlock Text="Configurações" Foreground="#F4F7FB" FontSize="15" FontWeight="SemiBold" VerticalAlignment="Center"/>
+        </StackPanel>
+        <Button HorizontalAlignment="Right" Style="{StaticResource IconButton}" Click="Close_Click" ToolTip="Fechar">
+          <Path Width="11" Height="11" Stretch="Uniform" Stroke="#D7DDE8" StrokeThickness="1.6"
+                StrokeStartLineCap="Round" Data="M1,1 L10,10 M10,1 L1,10"/>
+        </Button>
+      </Grid>
+
+      <TextBlock x:Name="StatusText" DockPanel.Dock="Bottom" Margin="18,0,18,10" Foreground="#8E97A6" TextWrapping="Wrap" MinHeight="18"/>
+
+      <Grid Margin="16,2,16,8">
+        <Grid.RowDefinitions>
+          <RowDefinition Height="*"/>
+          <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="1.25*"/>
+          <ColumnDefinition Width="18"/>
+          <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Border Grid.Column="0" Background="#0E1219" BorderBrush="#2A3142" BorderThickness="1" CornerRadius="9"
+                Padding="14" VerticalAlignment="Top" ClipToBounds="True">
+          <DockPanel>
+            <StackPanel DockPanel.Dock="Top" Margin="2,0,2,10">
+              <TextBlock Text="Monitores" Foreground="#F4F7FB" FontSize="14" FontWeight="SemiBold"/>
+              <TextBlock Text="Clique na tela para pausar; clique no nome para renomear."
+                         Foreground="#8E97A6" FontSize="12" Margin="0,3,0,0" TextWrapping="Wrap"/>
+            </StackPanel>
+            <StackPanel DockPanel.Dock="Bottom" Margin="2,10,2,0" HorizontalAlignment="Center">
+              <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <TextBlock x:Name="MonitorMethodLegend" Foreground="#8E97A6" FontSize="12"
+                           TextAlignment="Center" TextWrapping="Wrap" MaxWidth="360"/>
+                <Border x:Name="MethodHelp" Width="18" Height="18" CornerRadius="6" Margin="8,0,0,0"
+                        Background="#2A3142" Cursor="Help" VerticalAlignment="Center"
+                        ToolTipService.InitialShowDelay="200">
+                  <Border.ToolTip>
+                    <ToolTip MaxWidth="260" Background="#1B212C" BorderBrush="#343C4E" Foreground="#F4F7FB"
+                             Padding="10,8">
+                      <TextBlock TextWrapping="Wrap"
+                                 Text="Físico muda o brilho no próprio monitor. Camada escurece a tela por cima, quando o ajuste direto não está disponível."/>
+                    </ToolTip>
+                  </Border.ToolTip>
+                  <TextBlock Text="?" Foreground="#D7DDE8" FontSize="11" FontWeight="SemiBold"
+                             HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Border>
+              </StackPanel>
+            </StackPanel>
+            <Grid x:Name="MonitorHost" MinHeight="260" ClipToBounds="True" SizeChanged="MonitorHost_SizeChanged">
+              <TextBlock x:Name="EmptyMonitors" Text="Nenhum monitor encontrado." Foreground="#8E97A6"
+                         HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed"/>
+              <Canvas x:Name="MonitorMap" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="4"/>
+            </Grid>
+          </DockPanel>
+        </Border>
+
+        <Border Grid.Column="2" Background="#0E1219" BorderBrush="#2A3142" BorderThickness="1" CornerRadius="9"
+                Padding="14" VerticalAlignment="Stretch">
+          <DockPanel>
+            <StackPanel DockPanel.Dock="Top" Margin="2,0,2,10">
+              <DockPanel LastChildFill="False" Margin="0,0,0,4">
+                <TextBlock Text="Perfis" Foreground="#F4F7FB" FontSize="14" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                <StackPanel x:Name="ProfileActions" Orientation="Horizontal" DockPanel.Dock="Right">
+                  <Button x:Name="NewProfileButton" Content="Novo" Style="{StaticResource QuietButton}" Click="NewProfile_Click"/>
+                  <Button x:Name="EditModeButton" Content="Editar" Style="{StaticResource QuietButton}" Margin="6,0,0,0" Click="EditMode_Click"/>
+                  <Button x:Name="RemoveModeButton" Content="Remover" Style="{StaticResource QuietButton}" Margin="6,0,0,0" Click="RemoveMode_Click"/>
+                </StackPanel>
+              </DockPanel>
+              <TextBlock x:Name="ProfilesHint" Text="Ícone, nome e brilho de cada perfil."
+                         Foreground="#8E97A6" FontSize="12" TextWrapping="Wrap"/>
+            </StackPanel>
+
+            <StackPanel x:Name="EditorPanel" DockPanel.Dock="Bottom" Visibility="Collapsed" Margin="0,10,0,0">
+              <Border Height="1" Background="#2A3142" Margin="0,0,0,10"/>
+              <TextBlock x:Name="EditorTitle" Text="Novo perfil" Foreground="#F4F7FB" FontWeight="SemiBold" Margin="0,0,0,8"/>
+              <UniformGrid x:Name="IconChoices" Rows="1" Margin="0,0,0,8"/>
+              <TextBox x:Name="ProfileName" Style="{StaticResource Field}" Tag="Nome do perfil" Margin="0,0,0,8"/>
+              <Grid x:Name="GlobalBrightness" Margin="0,0,0,6">
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="*"/>
+                  <ColumnDefinition Width="40"/>
+                </Grid.ColumnDefinitions>
+                <Slider x:Name="ProfileLevel" ValueChanged="ProfileLevel_Changed"/>
+                <TextBlock x:Name="ProfileLevelText" Grid.Column="1" Text="100" Foreground="#F4F7FB" FontWeight="SemiBold"
+                           HorizontalAlignment="Right" VerticalAlignment="Center"/>
+              </Grid>
+              <CheckBox x:Name="PerMonitorCheck" Content="Brilho por monitor" Style="{StaticResource AppToggle}"
+                        Margin="2,0,0,6" Checked="PerMonitor_Changed" Unchecked="PerMonitor_Changed"/>
+              <StackPanel x:Name="PerMonitorLevels" Margin="0,0,0,8"/>
+              <StackPanel Orientation="Horizontal">
+                <Button x:Name="CommitProfileButton" Content="Criar" Style="{StaticResource AccentButton}" Click="CommitProfile_Click"/>
+                <Button Content="Cancelar" Style="{StaticResource QuietButton}" Margin="8,0,0,0" Click="CancelEditor_Click"/>
+              </StackPanel>
+            </StackPanel>
+
+            <Grid>
+              <TextBlock x:Name="EmptyProfiles" Text="Nenhum perfil ainda." Foreground="#8E97A6"
+                         HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed"/>
+              <ListBox x:Name="ProfileListBox"
+                       MaxHeight="340"
+                       Background="Transparent"
+                       BorderThickness="0"
+                       Padding="0"
+                       ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                       ScrollViewer.VerticalScrollBarVisibility="Auto"
+                       SelectionChanged="ProfileListBox_SelectionChanged"
+                       PreviewMouseLeftButtonDown="ProfileListBox_PreviewMouseLeftButtonDown"
+                       PreviewMouseMove="ProfileListBox_PreviewMouseMove"
+                       PreviewMouseLeftButtonUp="ProfileListBox_PreviewMouseLeftButtonUp"
+                       LostMouseCapture="ProfileListBox_LostMouseCapture">
+                <ListBox.ItemContainerStyle>
+                  <Style TargetType="ListBoxItem">
+                    <Setter Property="Padding" Value="0"/>
+                    <Setter Property="Margin" Value="0,0,0,4"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    <Setter Property="Background" Value="Transparent"/>
+                    <Setter Property="Template">
+                      <Setter.Value>
+                        <ControlTemplate TargetType="ListBoxItem">
+                          <Border x:Name="Bd" Background="{TemplateBinding Background}" CornerRadius="5" Padding="8,7"
+                                  BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter/>
+                          </Border>
+                          <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                              <Setter TargetName="Bd" Property="Background" Value="#2A3142"/>
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                              <Setter TargetName="Bd" Property="Background" Value="#2A3142"/>
+                            </Trigger>
+                            <DataTrigger Binding="{Binding IsPlaceholder}" Value="True">
+                              <Setter TargetName="Bd" Property="Background" Value="Transparent"/>
+                              <Setter TargetName="Bd" Property="BorderBrush" Value="{DynamicResource AccentBrush}"/>
+                              <Setter TargetName="Bd" Property="BorderThickness" Value="1"/>
+                              <Setter TargetName="Bd" Property="Opacity" Value="1"/>
+                              <Setter Property="IsHitTestVisible" Value="False"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding IsDragging}" Value="True">
+                              <Setter Property="Opacity" Value="0.25"/>
+                              <Setter Property="IsHitTestVisible" Value="False"/>
+                            </DataTrigger>
+                          </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                      </Setter.Value>
+                    </Setter>
+                  </Style>
+                </ListBox.ItemContainerStyle>
+                <ListBox.ItemTemplate>
+                  <DataTemplate>
+                    <Grid MinHeight="22">
+                      <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="72"/>
+                        <ColumnDefinition Width="Auto"/>
+                      </Grid.ColumnDefinitions>
+                      <Border Grid.Column="0" Width="22" Height="28" Margin="0,0,6,0" Background="Transparent"
+                              Visibility="{Binding GripVisibility}" Cursor="SizeAll" VerticalAlignment="Center"
+                              Tag="grip">
+                        <Canvas IsHitTestVisible="False" Width="12" Height="16" HorizontalAlignment="Center" VerticalAlignment="Center">
+                          <Ellipse Width="2.6" Height="2.6" Fill="#8E97A6" Canvas.Left="0" Canvas.Top="0"/>
+                          <Ellipse Width="2.6" Height="2.6" Fill="#8E97A6" Canvas.Left="6" Canvas.Top="0"/>
+                          <Ellipse Width="2.6" Height="2.6" Fill="#8E97A6" Canvas.Left="0" Canvas.Top="6"/>
+                          <Ellipse Width="2.6" Height="2.6" Fill="#8E97A6" Canvas.Left="6" Canvas.Top="6"/>
+                          <Ellipse Width="2.6" Height="2.6" Fill="#8E97A6" Canvas.Left="0" Canvas.Top="12"/>
+                          <Ellipse Width="2.6" Height="2.6" Fill="#8E97A6" Canvas.Left="6" Canvas.Top="12"/>
+                        </Canvas>
+                      </Border>
+                      <ContentControl Grid.Column="1" Content="{Binding Icon}" Margin="2,0,10,0" VerticalAlignment="Center"
+                                      Visibility="{Binding ContentVisibility}"/>
+                      <TextBlock Grid.Column="2" Text="{Binding Name}" Foreground="#F4F7FB" VerticalAlignment="Center"
+                                 TextTrimming="CharacterEllipsis" Visibility="{Binding ContentVisibility}"/>
+                      <TextBlock Grid.Column="3" Text="{Binding Level}" Foreground="#8E97A6" FontWeight="SemiBold"
+                                 HorizontalAlignment="Right" VerticalAlignment="Center" Visibility="{Binding ContentVisibility}"/>
+                      <Button Grid.Column="4" Width="28" Height="28" Margin="8,0,0,0"
+                              Visibility="{Binding RemoveVisibility}"
+                              Background="Transparent" BorderThickness="0" Cursor="Hand" Focusable="False"
+                              Click="RemoveProfileRow_Click" Tag="{Binding Name}">
+                        <Path Width="10" Height="10" Stretch="Uniform" Stroke="#8E97A6" StrokeThickness="1.6"
+                              StrokeStartLineCap="Round" Data="M1,1 L10,10 M10,1 L1,10"/>
+                      </Button>
+                      <Rectangle Grid.ColumnSpan="5" RadiusX="8" RadiusY="8" Stroke="{DynamicResource AccentBrush}"
+                                 StrokeThickness="1.5" StrokeDashArray="3 2.5" Fill="Transparent"
+                                 Visibility="{Binding PlaceholderVisibility}" IsHitTestVisible="False"/>
+                    </Grid>
+                  </DataTemplate>
+                </ListBox.ItemTemplate>
+              </ListBox>
+            </Grid>
+          </DockPanel>
+        </Border>
+
+        <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Background="#0E1219" BorderBrush="#2A3142"
+                BorderThickness="1" CornerRadius="9" Padding="14,12" Margin="0,14,0,0">
+          <Grid>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+              <TextBlock Text="Aparência" Foreground="#F4F7FB" FontSize="14" FontWeight="SemiBold" VerticalAlignment="Center" Margin="0,0,14,0"/>
+              <TextBlock Text="Cor" Foreground="#8E97A6" FontSize="12" VerticalAlignment="Center" Margin="0,0,8,0"/>
+              <StackPanel x:Name="ColorChoices" Orientation="Horizontal"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+              <CheckBox x:Name="StartupCheck" Content="Iniciar com o Windows" Style="{StaticResource AppToggle}"
+                        VerticalAlignment="Center" Margin="0,0,14,0"/>
+              <Button Content="Atualizar monitores" Style="{StaticResource QuietButton}" Click="Refresh_Click"/>
+            </StackPanel>
+          </Grid>
+        </Border>
+      </Grid>
+    </DockPanel>
+    <Canvas x:Name="DragCanvas" IsHitTestVisible="False" Background="Transparent"
+            HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+    </Grid>
+  </Border>
+</Window>

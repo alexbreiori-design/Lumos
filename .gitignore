@@ -1,0 +1,9 @@
+bin/
+obj/
+.vs/
+*.user
+publish/
+dist/
+*.exe
+!Assets/*.ico
+!installer/*.iss

@@ -1,7 +1,7 @@
-using Brilho.Models;
-using Brilho.Native;
+using Lumos.Models;
+using Lumos.Native;
 
-namespace Brilho.Services;
+namespace Lumos.Services;
 
 internal sealed class HardwareBus : IDisposable
 {
@@ -19,7 +19,7 @@ internal sealed class HardwareBus : IDisposable
         _thread = new Thread(Loop)
         {
             IsBackground = true,
-            Name = "Brilho DDC"
+            Name = "Lumos DDC"
         };
         _thread.Start();
     }

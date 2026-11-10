@@ -21,9 +21,9 @@ $dist = Join-Path $root "dist"
 New-Item -ItemType Directory -Force -Path $dist | Out-Null
 
 Write-Host "Gerando instalador..." -ForegroundColor Cyan
-& $iscc (Join-Path $root "installer\Brilho.iss")
+& $iscc (Join-Path $root "installer\Lumos.iss")
 if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
-Get-ChildItem $dist -Filter "Brilho-Setup-*.exe" | Sort-Object LastWriteTime -Descending | Select-Object -First 1 | ForEach-Object {
+Get-ChildItem $dist -Filter "Lumos-Setup-*.exe" | Sort-Object LastWriteTime -Descending | Select-Object -First 1 | ForEach-Object {
   Write-Host "Instalador: $($_.FullName)" -ForegroundColor Green
 }

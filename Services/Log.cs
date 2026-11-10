@@ -1,6 +1,6 @@
 using System.IO;
 
-namespace Brilho.Services;
+namespace Lumos.Services;
 
 internal static class Log
 {
@@ -10,7 +10,7 @@ internal static class Log
     {
         try
         {
-            var directory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Brilho");
+            var directory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Lumos");
             Directory.CreateDirectory(directory);
             var path = Path.Combine(directory, "log.txt");
             var line = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + " " + message + Environment.NewLine;

@@ -8,16 +8,16 @@
     <UseWindowsForms>true</UseWindowsForms>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <ApplicationHighDpiMode>PerMonitorV2</ApplicationHighDpiMode>
-    <ApplicationIcon>Assets\Brilho.ico</ApplicationIcon>
-    <AssemblyName>Brilho</AssemblyName>
-    <RootNamespace>Brilho</RootNamespace>
-    <Version>1.0.0</Version>
-    <Product>Brilho</Product>
+    <ApplicationIcon>Assets\Lumos.ico</ApplicationIcon>
+    <AssemblyName>Lumos</AssemblyName>
+    <RootNamespace>Lumos</RootNamespace>
+    <Version>1.1.0</Version>
+    <Product>Lumos</Product>
     <Description>Controle de brilho por monitor</Description>
   </PropertyGroup>
   <ItemGroup>
-    <Resource Include="Assets\Brilho.png" />
-    <Content Include="Assets\Brilho.ico">
+    <Resource Include="Assets\Lumos.png" />
+    <Content Include="Assets\Lumos.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

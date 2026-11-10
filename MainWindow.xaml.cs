@@ -14,13 +14,13 @@ using ButtonBase = System.Windows.Controls.Primitives.ButtonBase;
 using Color = System.Windows.Media.Color;
 using Cursors = System.Windows.Input.Cursors;
 using TextBox = System.Windows.Controls.TextBox;
-using Brilho.Models;
-using Brilho.Native;
-using Brilho.Services;
+using Lumos.Models;
+using Lumos.Native;
+using Lumos.Services;
 using Forms = System.Windows.Forms;
 using Drawing = System.Drawing;
 
-namespace Brilho;
+namespace Lumos;
 
 public partial class MainWindow : Window
 {
@@ -1364,7 +1364,7 @@ public partial class MainWindow : Window
         {
             Icon = Theme.CreateTrayIcon(Theme.Parse(Settings.Accent)),
             Visible = true,
-            Text = "Brilho",
+            Text = "Lumos",
             ContextMenuStrip = menu
         };
         icon.MouseDown += (_, args) =>

@@ -1,6 +1,6 @@
 using System.Runtime.InteropServices;
 
-namespace Brilho.Native;
+namespace Lumos.Native;
 
 internal static class NativeMethods
 {

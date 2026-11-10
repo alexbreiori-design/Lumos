@@ -1,9 +1,9 @@
 using System.IO;
 using System.Text;
-using Brilho.Models;
-using Brilho.Native;
+using Lumos.Models;
+using Lumos.Native;
 
-namespace Brilho.Services;
+namespace Lumos.Services;
 
 internal static class SelfTest
 {
@@ -103,7 +103,7 @@ internal static class SelfTest
     private static void Write(StringBuilder report, bool failed)
     {
         report.Insert(0, (failed ? "RESULTADO falhou" : "RESULTADO ok") + Environment.NewLine);
-        var path = Path.Combine(Path.GetTempPath(), "brilho-self-test.txt");
+        var path = Path.Combine(Path.GetTempPath(), "lumos-self-test.txt");
         File.WriteAllText(path, report.ToString());
         Console.WriteLine(report.ToString());
     }

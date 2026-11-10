@@ -1,7 +1,7 @@
 using System.Text;
 using Microsoft.Win32;
 
-namespace Brilho.Services;
+namespace Lumos.Services;
 
 internal static class EdidReader
 {

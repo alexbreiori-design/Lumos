@@ -1,10 +1,10 @@
 using Microsoft.Win32;
 
-namespace Brilho.Services;
+namespace Lumos.Services;
 
 internal static class StartupService
 {
-    private const string ValueName = "Brilho";
+    private const string ValueName = "Lumos";
     private const string RunKey = @"Software\Microsoft\Windows\CurrentVersion\Run";
 
     public static void Apply(bool enabled)
@@ -14,6 +14,7 @@ internal static class StartupService
         if (key == null)
             return;
 
+        key.DeleteValue("Brilho", throwOnMissingValue: false);
         if (!enabled)
         {
             key.DeleteValue(ValueName, throwOnMissingValue: false);

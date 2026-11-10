@@ -1,8 +1,8 @@
 using System.Runtime.InteropServices;
-using Brilho.Models;
-using Brilho.Native;
+using Lumos.Models;
+using Lumos.Native;
 
-namespace Brilho.Services;
+namespace Lumos.Services;
 
 internal static class MonitorScanner
 {

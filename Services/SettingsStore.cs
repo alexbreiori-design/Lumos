@@ -1,8 +1,8 @@
 using System.IO;
 using System.Text.Json;
-using Brilho.Models;
+using Lumos.Models;
 
-namespace Brilho.Services;
+namespace Lumos.Services;
 
 internal sealed class SettingsStore
 {
@@ -16,9 +16,23 @@ internal sealed class SettingsStore
 
     public SettingsStore()
     {
-        var directory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Brilho");
+        var root = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+        var directory = Path.Combine(root, "Lumos");
+        var legacy = Path.Combine(root, "Brilho");
+        if (!Directory.Exists(directory) && Directory.Exists(legacy))
+        {
+            try { Directory.Move(legacy, directory); }
+            catch { /* keep going with a fresh Lumos folder */ }
+        }
+
         Directory.CreateDirectory(directory);
         _path = Path.Combine(directory, "settings.json");
+        var legacySettings = Path.Combine(legacy, "settings.json");
+        if (!File.Exists(_path) && File.Exists(legacySettings))
+        {
+            try { File.Copy(legacySettings, _path); }
+            catch { /* ignore */ }
+        }
     }
 
     public StoredState Load()

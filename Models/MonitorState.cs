@@ -1,4 +1,4 @@
-namespace Brilho.Models;
+namespace Lumos.Models;
 
 internal sealed class MonitorState
 {

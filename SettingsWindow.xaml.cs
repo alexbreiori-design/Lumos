@@ -13,11 +13,11 @@ using CheckBox = System.Windows.Controls.CheckBox;
 using Color = System.Windows.Media.Color;
 using Cursors = System.Windows.Input.Cursors;
 using TextBox = System.Windows.Controls.TextBox;
-using Brilho.Models;
-using Brilho.Services;
+using Lumos.Models;
+using Lumos.Services;
 using Point = System.Windows.Point;
 
-namespace Brilho;
+namespace Lumos;
 
 public partial class SettingsWindow : Window
 {
@@ -1089,7 +1089,7 @@ public partial class SettingsWindow : Window
         EditorTitle.Text = "Novo perfil";
         CommitProfileButton.Content = "Criar";
         EditorPanel.Visibility = Visibility.Visible;
-        ProfilesHint.Text = "Defina ícone, nome e brilho.";
+        ProfilesHint.Text = "Defina ícone, nome e Lumos.";
         StyleModeButtons();
         ShowIcons();
         RebuildPerMonitor();

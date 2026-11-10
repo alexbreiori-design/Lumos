@@ -1,12 +1,12 @@
 using System.Runtime.InteropServices;
-using Brilho.Models;
-using Brilho.Native;
+using Lumos.Models;
+using Lumos.Native;
 
-namespace Brilho.Services;
+namespace Lumos.Services;
 
 internal sealed class OverlayDimmer : IDisposable
 {
-    private const string ClassName = "BrilhoOverlayWindow";
+    private const string ClassName = "LumosOverlayWindow";
     private delegate nint OverlayProc(nint hwnd, uint message, nint wParam, nint lParam);
 
     private readonly Dictionary<string, nint> _windows = new();
@@ -122,7 +122,7 @@ internal sealed class OverlayDimmer : IDisposable
         };
         var atom = NativeMethods.RegisterClass(ref windowClass);
         if (atom == 0 && Marshal.GetLastWin32Error() != 1410)
-            throw new InvalidOperationException("Não foi possível registrar a camada de brilho.");
+            throw new InvalidOperationException("Não foi possível registrar a camada de Lumos.");
         _classRegistered = true;
     }
 

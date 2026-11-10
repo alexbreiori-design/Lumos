@@ -1,4 +1,4 @@
-namespace Brilho.Services;
+namespace Lumos.Services;
 
 internal static class BrightnessMath
 {

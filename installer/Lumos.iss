@@ -1,13 +1,13 @@
-; Brilho — instalador Inno Setup 6
-#define MyAppName "Brilho"
-#define MyAppVersion "1.0.0"
+; Lumos — instalador Inno Setup 6
+#define MyAppName "Lumos"
+#define MyAppVersion "1.1.0"
 #define MyAppPublisher "Alex Breiori"
-#define MyAppURL "https://github.com/alexbreiori-design/Brilho"
-#define MyAppExeName "Brilho.exe"
+#define MyAppURL "https://github.com/alexbreiori-design/Lumos"
+#define MyAppExeName "Lumos.exe"
 #define PublishDir "..\publish\win-x64"
 
 [Setup]
-AppId={{A7F3C2E1-9B4D-4F8A-8E2C-1D6B5A0F3C9E}
+AppId={{C4E8A1B2-7D5F-4C9E-9A1B-2E8F6D0C4A7B}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
 AppVerName={#MyAppName} {#MyAppVersion}
@@ -19,8 +19,8 @@ DefaultDirName={localappdata}\Programs\{#MyAppName}
 DefaultGroupName={#MyAppName}
 DisableProgramGroupPage=yes
 OutputDir=..\dist
-OutputBaseFilename=Brilho-Setup-{#MyAppVersion}
-SetupIconFile=..\Assets\Brilho.ico
+OutputBaseFilename=Lumos-Setup-{#MyAppVersion}
+SetupIconFile=..\Assets\Lumos.ico
 UninstallDisplayIcon={app}\{#MyAppExeName}
 Compression=lzma2/max
 SolidCompression=yes
@@ -51,6 +51,3 @@ Name: "{userstartup}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: st
 
 [Run]
 Filename: "{app}\{#MyAppExeName}"; Description: "Abrir {#MyAppName}"; Flags: nowait postinstall skipifsilent
-
-[UninstallDelete]
-Type: filesandordirs; Name: "{localappdata}\Brilho"

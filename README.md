@@ -1,4 +1,4 @@
-# Brilho
+# Lumos
 
 Controle de brilho por monitor no Windows — bandeja do sistema, DDC/CI quando disponível e camada de escurecimento quando não estiver.
 
@@ -17,13 +17,13 @@ Controle de brilho por monitor no Windows — bandeja do sistema, DDC/CI quando 
 
 ## Instalação
 
-Baixe o `Brilho-Setup-*.exe` na [página de Releases](https://github.com/alexbreiori-design/Brilho/releases) e execute.
+Baixe o `Lumos-Setup-*.exe` na [página de Releases](https://github.com/alexbreiori-design/Lumos/releases) e execute.
 
 ## Desenvolvimento
 
 ```powershell
 dotnet build
-dotnet run
+dotnet run --project Lumos.csproj
 ```
 
 ### Publicar e gerar instalador
@@ -32,7 +32,7 @@ dotnet run
 .\scripts\build-installer.ps1
 ```
 
-O instalador sai em `dist\Brilho-Setup-1.0.0.exe` (requer [Inno Setup 6](https://jrsoftware.org/isinfo.php)).
+O instalador sai em `dist\Lumos-Setup-1.1.0.exe` (requer [Inno Setup 6](https://jrsoftware.org/isinfo.php)).
 
 Só publicar os binários:
 

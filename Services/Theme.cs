@@ -5,7 +5,7 @@ using System.Windows.Media.Imaging;
 using Color = System.Windows.Media.Color;
 using Drawing = System.Drawing;
 
-namespace Brilho.Services;
+namespace Lumos.Services;
 
 internal static class Theme
 {
@@ -150,24 +150,49 @@ internal static class Theme
 
     private static void Draw(DrawingContext context, Color accent, double size)
     {
-        var brush = Brush(accent);
-        var thickness = Math.Max(1.6, size * 0.11);
-        var pen = new System.Windows.Media.Pen(brush, thickness)
+        var glow = Brush(accent);
+        var wood = Brush(Color.FromRgb(0x6B, 0x45, 0x2A));
+        var woodDark = Brush(Color.FromRgb(0x3D, 0x27, 0x16));
+        var tip = new System.Windows.Point(size * 0.78, size * 0.22);
+        var handle = new System.Windows.Point(size * 0.22, size * 0.80);
+
+        // Soft aura behind the tip
+        context.DrawEllipse(Brush(Color.FromArgb(72, accent.R, accent.G, accent.B)), null, tip, size * 0.22, size * 0.22);
+        context.DrawEllipse(Brush(Mix(Color.FromRgb(255, 255, 255), accent, 0.35)), null, tip, size * 0.10, size * 0.10);
+        context.DrawEllipse(glow, null, tip, size * 0.055, size * 0.055);
+
+        // Wand shaft
+        var shaft = new System.Windows.Media.Pen(wood, Math.Max(2.0, size * 0.09))
         {
             StartLineCap = PenLineCap.Round,
             EndLineCap = PenLineCap.Round
         };
-        var center = new System.Windows.Point(size / 2, size / 2);
-        context.DrawEllipse(brush, null, center, size * 0.17, size * 0.17);
-        var inner = size * 0.30;
-        var outer = size * 0.46;
-        for (var ray = 0; ray < 8; ray++)
+        context.DrawLine(shaft, handle, tip);
+
+        // Handle band
+        var mid = new System.Windows.Point(
+            handle.X + (tip.X - handle.X) * 0.18,
+            handle.Y + (tip.Y - handle.Y) * 0.18);
+        var band = new System.Windows.Media.Pen(woodDark, Math.Max(1.4, size * 0.07))
         {
-            var angle = ray * Math.PI / 4 - Math.PI / 2;
+            StartLineCap = PenLineCap.Round,
+            EndLineCap = PenLineCap.Round
+        };
+        context.DrawLine(band, handle, mid);
+
+        // Tiny spark rays
+        var rayPen = new System.Windows.Media.Pen(glow, Math.Max(1.1, size * 0.035))
+        {
+            StartLineCap = PenLineCap.Round,
+            EndLineCap = PenLineCap.Round
+        };
+        for (var ray = 0; ray < 4; ray++)
+        {
+            var angle = ray * Math.PI / 2 + Math.PI / 4;
             context.DrawLine(
-                pen,
-                new System.Windows.Point(center.X + Math.Cos(angle) * inner, center.Y + Math.Sin(angle) * inner),
-                new System.Windows.Point(center.X + Math.Cos(angle) * outer, center.Y + Math.Sin(angle) * outer));
+                rayPen,
+                new System.Windows.Point(tip.X + Math.Cos(angle) * size * 0.08, tip.Y + Math.Sin(angle) * size * 0.08),
+                new System.Windows.Point(tip.X + Math.Cos(angle) * size * 0.16, tip.Y + Math.Sin(angle) * size * 0.16));
         }
     }
 

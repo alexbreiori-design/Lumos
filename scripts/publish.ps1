@@ -4,8 +4,8 @@ $root = Split-Path -Parent $PSScriptRoot
 Set-Location $root
 
 $out = Join-Path $root "publish\win-x64"
-Write-Host "Publicando Brilho (self-contained win-x64)..." -ForegroundColor Cyan
-dotnet publish .\Brilho.csproj `
+Write-Host "Publicando Lumos (self-contained win-x64)..." -ForegroundColor Cyan
+dotnet publish .\Lumos.csproj `
   -c Release `
   -r win-x64 `
   --self-contained true `

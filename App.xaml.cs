@@ -1,7 +1,7 @@
 using System.Windows;
-using Brilho.Services;
+using Lumos.Services;
 
-namespace Brilho;
+namespace Lumos;
 
 public partial class App : System.Windows.Application
 {
@@ -25,8 +25,8 @@ public partial class App : System.Windows.Application
             return;
         }
 
-        _show = new EventWaitHandle(false, EventResetMode.AutoReset, @"Local\Brilho.Show");
-        _mutex = new Mutex(true, @"Local\Brilho.Single", out var first);
+        _show = new EventWaitHandle(false, EventResetMode.AutoReset, @"Local\Lumos.Show");
+        _mutex = new Mutex(true, @"Local\Lumos.Single", out var first);
         if (!first)
         {
             _show.Set();
